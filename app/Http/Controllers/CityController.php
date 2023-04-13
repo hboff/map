@@ -3,36 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use MathPHP\Geometry\Triangulation\Delaunay;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Phayes\GeoPHP\GeoPHP;
+use GeoJSON\Feature\Feature;
+use GeoJSON\Feature\FeatureCollection;
+use GeoJSON\Geometry\LinearRing;
+use GeoJSON\Geometry\MultiPolygon;
+use GeoJSON\Geometry\Polygon;
 
 class CityController extends Controller
 {
     public function map()
     {
-        // Wählen Sie die Großstädte aus der Datenbank aus
-        $result = DB::table('cities')->select('stadt', 'breite', 'laenge')->get();
+        // Lade die Daten der Großstädte in Deutschland
+        $cities = DB::table('cities')->select(DB::raw('ST_X(location) as longitude, ST_Y(location) as latitude'))->get();
 
-        // Definieren Sie eine Menge von Punkten (Koordinaten der Großstädte)
-        $points = array();
-        foreach ($result as $row) {
-            $points[] = array($row->breite, $row->laenge);
+        // Wähle die Merkmale aus
+        $points = [];
+        foreach ($cities as $city) {
+            $points[] = [$city->latitude, $city->longitude];
         }
 
-        // Berechnen Sie die Delaunay-Triangulation
-        $triangulation = Delaunay::create($points);
+        // Führe die Delaunay-Triangulation durch
+        $triangles = GeoPHP::delaunayTriangulation($points);
 
-        // Erstellen Sie Polygone um jede Großstadt herum
-        $polygons = array();
-        foreach ($triangulation->getTriangles() as $triangle) {
-            $vertices = array();
-            foreach ($triangle as $point) {
-                $vertices[] = array($points[$point][1], $points[$point][0]); // Vertices müssen im Format [Lng, Lat] sein
+        // Erstelle die Polygone
+        $polygons = [];
+        foreach ($triangles as $triangle) {
+            $vertices = $triangle->getVertices();
+            $ring = [];
+            foreach ($vertices as $vertex) {
+                $ring[] = [$vertex->y(), $vertex->x()];
             }
-            $polygons[] = $vertices;
-        } 
+            $polygons[] = new Polygon(new LinearRing($ring));
+        }
+        $multiPolygon = new MultiPolygon($polygons);
 
-        // Geben Sie die Polygone als JSON zurück
-        return response()->json($polygons);
+        // Ordne jeder Stadt das zugehörige Dreieck zu
+        $features = [];
+        foreach ($cities as $city) {
+            $point = GeoPHP::load("POINT($city->longitude $city->latitude)");
+            $polygon = $multiPolygon->contains($point) ? $multiPolygon->getPolygonContaining($point) : null;
+            $feature = new Feature(new Polygon(new LinearRing($polygon->getVertices())), ['name' => $city->name]);
+            $features[] = $feature;
+        }
+        $featureCollection = new FeatureCollection($features);
+
+        // Gebe die Karte zurück
+        return view('map', compact('featureCollection'));
     }
 }
