@@ -30,7 +30,7 @@ class CityController extends Controller
                 $vertices[] = array($points[$point][1], $points[$point][0]); // Vertices müssen im Format [Lng, Lat] sein
             }
             $polygons[] = $vertices;
-        }
+        } 
 
         // Geben Sie die Polygone als JSON zurück
         return response()->json($polygons);
