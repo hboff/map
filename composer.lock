@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a164ba187ec2f4de00cfb1649c4a9fab",
+    "content-hash": "483e2ae603fb3a1b3ac0942ca993e66b",
     "packages": [
         {
             "name": "brick/math",
@@ -1763,32 +1763,6 @@
                 "source": "https://github.com/laravel/tinker/tree/v2.8.1"
             },
             "time": "2023-02-15T16:40:09+00:00"
-        },
-        {
-            "name": "leaflet/leaflet",
-            "version": "v1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/aissasell/leaflet.git",
-                "reference": "7eadefcbd4d8bbb9af36a2b78186e6d068afa177"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/aissasell/leaflet/zipball/7eadefcbd4d8bbb9af36a2b78186e6d068afa177",
-                "reference": "7eadefcbd4d8bbb9af36a2b78186e6d068afa177",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "description": "an open-source JavaScript library for mobile-friendly interactive maps",
-            "support": {
-                "issues": "https://github.com/aissasell/leaflet/issues",
-                "source": "https://github.com/aissasell/leaflet/tree/v1.4.0"
-            },
-            "time": "2019-03-23T14:27:52+00:00"
         },
         {
             "name": "league/commonmark",
