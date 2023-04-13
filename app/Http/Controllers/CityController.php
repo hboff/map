@@ -16,7 +16,7 @@ class CityController extends Controller
         // Definieren Sie eine Menge von Punkten (Koordinaten der Großstädte)
         $points = array();
         foreach ($result as $row) {
-            $points[] = array($row->latitude, $row->longitude);
+            $points[] = array($row->breite, $row->laenge);
         }
 
         // Berechnen Sie die Delaunay-Triangulation
