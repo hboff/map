@@ -16,33 +16,35 @@
     </style>
 </head>
 <body>
-<div id="map"></div>
-<script src="{{ asset('js/leaflet.js') }}"></script>
+<div class="container">
+    <h1>Großstädte in Deutschland</h1>
+    <div id="map"></div>
+</div>
+
 <script>
-    var geojson = {!! json_encode($geojson) !!};
+// Initialisieren Sie die Leaflet-Karte
+var map = L.map('map').setView([51.1657, 10.4515], 6);
 
-    var map = L.map('map').setView([51.505, 10], 6);
+// Fügen Sie eine OpenStreetMap-Kachel hinzu
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox.streets'
+}).addTo(map);
 
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: '&copy; <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/streets-v11',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'your-mapbox-access-token'
-    }).addTo(map);
-
-    L.geoJSON(geojson, {
-        style: {
-            fillColor: '#00ff00',
-            weight: 2,
-            opacity: 1,
-            color: 'white',
-            fillOpacity: 0.5
+// Rufen Sie die Polygone über Ajax auf und fügen Sie sie zur Karte hinzu
+$.ajax({
+    url: '/polygons',
+    dataType: 'json',
+    success: function(data) {
+        for (var i = 0; i < data.length; i++) {
+            L.polygon(data[i]).addTo(map);
         }
-    }).bindPopup(function (layer) {
-        return layer.feature.properties.name;
-    }).addTo(map);
+    }
+});
 </script>
+
 </body>
 </html>
