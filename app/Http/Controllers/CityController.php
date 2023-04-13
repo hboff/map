@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Phayes\GeoPHP\GeoPHP;
+use Phayes\GeoPHP\geoPHP;
 use GeoJSON\Feature\Feature;
 use GeoJSON\Feature\FeatureCollection;
 use GeoJSON\Geometry\LinearRing;
@@ -25,7 +25,7 @@ class CityController extends Controller
         }
 
         // Führe die Delaunay-Triangulation durch
-        $triangles = GeoPHP::delaunayTriangulation($points);
+        $triangles = geoPHP::delaunayTriangulation($points);
 
         // Erstelle die Polygone
         $polygons = [];
