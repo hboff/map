@@ -8,7 +8,7 @@ use DB;
 
 class CityController extends Controller
 {
-    public function index()
+    public function map()
     {
         // Wählen Sie die Großstädte aus der Datenbank aus
         $result = DB::table('cities')->select('name', 'breite', 'laenge')->get();
