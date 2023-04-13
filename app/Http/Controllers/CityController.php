@@ -16,12 +16,12 @@ class CityController extends Controller
     public function map()
     {
         // Lade die Daten der Großstädte in Deutschland
-        $cities = DB::table('cities')->select(DB::raw('ST_X(location) as longitude, ST_Y(location) as latitude'))->get();
+        $cities = DB::table('cities')->select(DB::raw('laenge, breite'))->get();
 
         // Wähle die Merkmale aus
         $points = [];
         foreach ($cities as $city) {
-            $points[] = [$city->latitude, $city->longitude];
+            $points[] = [$city->breite, $city->laenge];
         }
 
         // Führe die Delaunay-Triangulation durch
