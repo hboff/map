@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "77b7805ba243fb1a2d628161b5b4d43b",
+    "content-hash": "97c02c9bc0cd341a686458e53c96462d",
     "packages": [
         {
             "name": "brick/math",
@@ -1707,21 +1707,20 @@
         },
         {
             "name": "markrogoyski/math-php",
-            "version": "v2.7.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/markrogoyski/math-php.git",
-                "reference": "dbc2d1d1dca9081782e7660e23eadb3d3663324e"
+                "reference": "894b01ab517ee0a7bd7f640f792e7ad436187f93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/dbc2d1d1dca9081782e7660e23eadb3d3663324e",
-                "reference": "dbc2d1d1dca9081782e7660e23eadb3d3663324e",
+                "url": "https://api.github.com/repos/markrogoyski/math-php/zipball/894b01ab517ee0a7bd7f640f792e7ad436187f93",
+                "reference": "894b01ab517ee0a7bd7f640f792e7ad436187f93",
                 "shasum": ""
             },
             "require": {
-                "ext-json": "*",
-                "php": ">=7.2.0"
+                "php": ">=7.0.0"
             },
             "require-dev": {
                 "php-coveralls/php-coveralls": "^2.0",
@@ -1729,7 +1728,7 @@
                 "phploc/phploc": "*",
                 "phpmd/phpmd": "^2.6",
                 "phpstan/phpstan": "*",
-                "phpunit/phpunit": "^8.5",
+                "phpunit/phpunit": ">=6.0 <8.0",
                 "squizlabs/php_codesniffer": "3.*"
             },
             "type": "library",
@@ -1755,6 +1754,10 @@
                     "role": "Developer"
                 },
                 {
+                    "name": "Jakob Sandberg",
+                    "role": "Contributor"
+                },
+                {
                     "name": "MathPHP Community of Contributors",
                     "homepage": "https://github.com/markrogoyski/math-php/graphs/contributors"
                 }
@@ -1776,9 +1779,9 @@
             ],
             "support": {
                 "issues": "https://github.com/markrogoyski/math-php/issues",
-                "source": "https://github.com/markrogoyski/math-php/tree/v2.7.0"
+                "source": "https://github.com/markrogoyski/math-php/tree/v1.11.0"
             },
-            "time": "2022-12-31T06:59:07+00:00"
+            "time": "2021-05-09T05:40:47+00:00"
         },
         {
             "name": "monolog/monolog",
